@@ -1,0 +1,47 @@
+[{
+    "@context": "http://www.w3.org/ns/odrl.jsonld",
+    "uid": "http://example.com/policy: 302",
+    "@type": "Agreement",
+    "permission": [
+        {
+            "target": "http://example.com/weDeliver/asset/parcelSchedulingSystem",
+            "assigner": "http://example.com/weDeliver",
+            "assignee": "http://example.com/weRetail/users/John",
+            "action": [
+                {
+                    "rdf: value": {
+                        "@id": "execute"
+                    },
+                    "refinement": [
+                        {
+                            "leftOperand": "spatial",
+                            "operator": "eq",
+                            "rightOperand": "https://www.wikidata.org/wiki/Q183?wprov=srpw1_0",
+                            "comment": "Germany"
+                        }
+                    ]
+                }
+            ],
+            "duty": [
+                {
+                    "action": [
+                        {
+                            "rdf:value": {
+                                "@id": "odrl:obtainConsent "
+                            },
+                            "refinement": [
+                                {
+                                    "leftOperand": "count",
+                                    "operator": "gteq",
+                                    "rightOperand": "2",
+                                    "unit": "https://www.wikidata.org/wiki/Q11563"
+                                }
+                            ]
+                        }
+                    ],
+                    "consentingParty": "http://example.com/parcelSchedulingSystem/consentment"
+                }
+            ]
+        }
+    ]
+}]

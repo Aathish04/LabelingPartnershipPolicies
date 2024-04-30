@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Scanner;
+// import java.util.Scanner;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
@@ -11,13 +11,15 @@ public class Manager {
 	private static LinkedList<Policy> LocalPolicies = new LinkedList<>();
 
 	public static void main(String[] args) throws InvalidFormatException, IOException, DatatypeConfigurationException {
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the path of your Local Policies file");
-		String Lpath = input.nextLine();
-		LocalPolicies = PolicyParser.ParsePolicies(Lpath);
-		System.out.println("Enter the path of your Partnership Policies file");
-		String Ppath = input.nextLine();
+		// Scanner input = new Scanner(System.in);
+		// System.out.println("Enter the path of your Local Policies file");
+		// String Lpath = input.nextLine();
+		// System.out.println("Enter the path of your Partnership Policies file");
+		// String Ppath = input.nextLine();
 
+		String Lpath = "odrl/LocalPolicies.json";
+		LocalPolicies = PolicyParser.ParsePolicies(Lpath);
+		String Ppath = "odrl/PartnershipPolicies.json";
 		PartnershipPolicies = PolicyParser.ParsePolicies(Ppath);
 		for (int i = 0; i < PartnershipPolicies.size(); i++) {
 			if (!PartnershipPolicies.get(i).getLeftOperand().equals("dateTime")) {
