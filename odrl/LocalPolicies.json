@@ -17,7 +17,7 @@
                         "action": [
                             {
                                 "rdf:value": {
-                                    "@id": "odrl:obtainConsent "
+                                    "@id": "odrl:obtainConsent"
                                 },
                                 "refinement": [
                                     {
