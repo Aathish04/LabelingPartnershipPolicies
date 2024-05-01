@@ -5,12 +5,13 @@ import java.util.LinkedList;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.json.simple.parser.ParseException;
 
 public class Manager {
 	private static LinkedList<Policy> PartnershipPolicies = new LinkedList<>();
 	private static LinkedList<Policy> LocalPolicies = new LinkedList<>();
 
-	public static void main(String[] args) throws InvalidFormatException, IOException, DatatypeConfigurationException {
+	public static void main(String[] args) throws InvalidFormatException, IOException, DatatypeConfigurationException, ParseException {
 		// Scanner input = new Scanner(System.in);
 		// System.out.println("Enter the path of your Local Policies file");
 		// String Lpath = input.nextLine();
@@ -68,7 +69,7 @@ public class Manager {
 	}
 
 	public static void comapare(Policy LP, Policy PP)
-			throws InvalidFormatException, IOException, DatatypeConfigurationException {
+			throws InvalidFormatException, IOException, DatatypeConfigurationException, ParseException {
 		String Conflict = " ";
 		if ((PP.getTarget().equals(LP.getTarget())) && (PP.getLeftOperand().equals(LP.getLeftOperand()))) {
 			if (PP.getLeftOperand().equals("count")) {

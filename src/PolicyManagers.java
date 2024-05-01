@@ -8,6 +8,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.json.simple.JSONObject;
 
 public class PolicyManagers {
 	public static String compareCount(Policy LP, Policy PP) {
@@ -414,36 +415,32 @@ public class PolicyManagers {
 		return label;
 	}
 
-	public static String compareSpatial(Policy LP, Policy PP) throws InvalidFormatException, IOException {
+	public static String compareSpatial(Policy LP, Policy PP) throws InvalidFormatException, IOException, org.json.simple.parser.ParseException{
 		String label = "";
-		String[] dataLP = null, dataPP = null;
-		boolean iscountryLP = ReadExcelFile.IsCountry(LP.getRightOperand());
-		boolean iscountryPP = ReadExcelFile.IsCountry(PP.getRightOperand());
-		if (!iscountryLP) {
-			dataLP = ReadExcelFile.IsNamedarea(LP.getRightOperand());
-		}
-		if (!iscountryPP) {
-			dataPP = ReadExcelFile.IsNamedarea(PP.getRightOperand());
-		}
 
+		JSONObject dataLP = GeoNamesAPI.getGeodata(LP.getRightOperand());
+		JSONObject dataPP = GeoNamesAPI.getGeodata(PP.getRightOperand());
+
+		boolean iscountryLP = dataLP.get("fcodeName").equals("independent political entity") ? true:false;
+		boolean iscountryPP = dataPP.get("fcodeName").equals("independent political entity") ? true:false;
 		if (LP.getRightOperand().equals(PP.getRightOperand())) {
 			label = "Neutral";
 		} else if ((iscountryLP) && (iscountryPP))
 			label = "Cannot be labelled";
 		else if (iscountryLP) {
-			if (dataPP[2].equals(LP.getRightOperand())) {
+			if (dataPP.get("countryName").equals(LP.getRightOperand())) { // Same Country
 				label = "Opposing";
 			} else
 				label = "Cannot be labelled";
 		} else if (iscountryPP) {
 
-			if (dataLP[2].equals(PP.getRightOperand())) {
+			if (dataLP.get("countryName").equals(PP.getRightOperand())) { // Same Country
 				label = "Supportive";
 			} else
 				label = "Cannot be labelled";
 		} else {
 
-			if (dataLP[1].equals(dataPP[1])) {
+			if (dataLP.get("name").equals(dataPP.get("name"))) { // Same City
 				label = "Neutral";
 			} else {
 				label = "Cannot be labelled";
