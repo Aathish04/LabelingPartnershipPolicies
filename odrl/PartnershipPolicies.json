@@ -28,14 +28,13 @@
                         "action": [
                             {
                                 "rdf:value": {
-                                    "@id": "odrl:obtainConsent"
+                                    "@id": "odrl:execute"
                                 },
                                 "refinement": [
                                     {
-                                        "leftOperand": "count",
-                                        "operator": "gteq",
-                                        "rightOperand": "2",
-                                        "unit": "https://www.wikidata.org/wiki/Q11563"
+                                        "leftOperand": "spatial",
+                                        "operator": "eq",
+                                        "rightOperand": "Tokyo"
                                     }
                                 ]
                             }
